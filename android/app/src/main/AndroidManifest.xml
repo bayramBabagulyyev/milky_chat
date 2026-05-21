@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.milkychat.app">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Network permissions for P2P -->
     <uses-permission android:name="android.permission.INTERNET" />
