@@ -29,6 +29,19 @@ jobs:
       - name: Accept Android SDK licenses
         run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 
+      - name: Bootstrap missing Android scaffold
+        run: |
+          if [ ! -f android/build.gradle ] && [ ! -f android/build.gradle.kts ]; then
+            echo "Android scaffolding missing — regenerating with flutter create"
+            if [ -f android/app/src/main/AndroidManifest.xml ]; then
+              cp android/app/src/main/AndroidManifest.xml /tmp/AndroidManifest.xml.bak
+            fi
+            flutter create --platforms=android --org=com.milkychat --project-name=milky_chat .
+            if [ -f /tmp/AndroidManifest.xml.bak ]; then
+              cp /tmp/AndroidManifest.xml.bak android/app/src/main/AndroidManifest.xml
+            fi
+          fi
+
       - name: Install dependencies
         run: flutter pub get
 
